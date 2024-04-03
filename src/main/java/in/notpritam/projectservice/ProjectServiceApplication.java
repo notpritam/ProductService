@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProjectServiceApplication {
 
     public static void main(String[] args) {
+        System.setProperty("server.port", "3000");
         SpringApplication.run(ProjectServiceApplication.class, args);
     }
 
