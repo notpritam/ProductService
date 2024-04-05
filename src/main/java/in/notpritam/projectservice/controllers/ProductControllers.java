@@ -27,19 +27,20 @@ public class ProductControllers {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getProductById(@PathVariable("id") Long id){
-            ResponseEntity<Object> responseEntity = null;
-            try{
-             Product product =  fakeStoreProductService.getProductById(id);
-             responseEntity = new ResponseEntity<>(product, HttpStatus.OK);
-            }catch (RuntimeException exception) {
-                ExceptionDTO exceptionDTO = new ExceptionDTO();
-                exceptionDTO.setMessage("Something Went Wrong");
-                exceptionDTO.setResolution("Do Nothing");
-                responseEntity = new ResponseEntity<>(exceptionDTO,HttpStatus.NOT_FOUND);
-            }
+    public Product getProductById(@PathVariable("id") Long id){
 
-            return responseEntity;
+//            ResponseEntity<Object> responseEntity = null;
+//            try{
+//             Product product =  fakeStoreProductService.getProductById(id);
+//             responseEntity = new ResponseEntity<>(product, HttpStatus.OK);
+//            }catch (RuntimeException exception) {
+//                ExceptionDTO exceptionDTO = new ExceptionDTO();
+//                exceptionDTO.setMessage("Something Went Wrong");
+//                exceptionDTO.setResolution("Do Nothing");
+//                responseEntity = new ResponseEntity<>(exceptionDTO,HttpStatus.NOT_FOUND);
+//            }
+
+            return fakeStoreProductService.getProductById(id);
     }
 
     @GetMapping

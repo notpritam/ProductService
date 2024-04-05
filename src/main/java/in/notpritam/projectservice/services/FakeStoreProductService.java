@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FakeStoreProductService implements ProductService{
+public class FakeStoreProductService implements IProductService {
 
 
     RestTemplate restTemplate;
