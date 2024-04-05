@@ -1,5 +1,6 @@
 package in.notpritam.projectservice.ExceptionHandlers;
 
+import in.notpritam.projectservice.Exceptions.ProductNotFoundException;
 import in.notpritam.projectservice.dtos.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -15,8 +16,7 @@ public class GlobalExceptionHandler {
         exceptionDTO.setMessage("Something went wrong");
         exceptionDTO.setResolution("Arithmetic Resollutions");
 
-        ResponseEntity<ExceptionDTO> response = new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
-        return response;
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
 
 
@@ -26,7 +26,15 @@ public class GlobalExceptionHandler {
         exceptionDTO.setMessage("Something went wrong");
         exceptionDTO.setResolution("ArrayIndex Out of Bound Exceptions");
 
-        ResponseEntity<ExceptionDTO> response = new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
-        return response;
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ExceptionDTO> handleProductNotFound(ProductNotFoundException productNotFoundException){
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setMessage("Invalid productID passed " + productNotFoundException.getId());
+        exceptionDTO.setResolution("ProductNotFound Exception");
+
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
 }

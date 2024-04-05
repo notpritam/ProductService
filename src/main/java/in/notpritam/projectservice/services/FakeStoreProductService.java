@@ -1,5 +1,6 @@
 package in.notpritam.projectservice.services;
 
+import in.notpritam.projectservice.Exceptions.ProductNotFoundException;
 import in.notpritam.projectservice.dtos.FakeStoreProductDTO;
 import in.notpritam.projectservice.models.Category;
 import in.notpritam.projectservice.models.Product;
@@ -26,6 +27,10 @@ public class FakeStoreProductService implements IProductService {
 
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProductDTO.class);
 
+        if(fakeStoreProductDTO == null){
+            throw  new ProductNotFoundException("Please a valid product id.", id);
+        }
+
         return mapFakeStoreProductDTOToProduct(fakeStoreProductDTO);
     }
 
@@ -39,7 +44,7 @@ public class FakeStoreProductService implements IProductService {
 
 
         if(fakeStoreProductDTOS.length< 1){
-            return null;
+            throw new ProductNotFoundException("Not Product Found", (long) -1);
         }
 
         for(FakeStoreProductDTO fakeStoreProductDTO : fakeStoreProductDTOS){
