@@ -24,7 +24,6 @@ public class FakeStoreProductService implements ProductService{
 
         // get the product by using id from here
 
-
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProductDTO.class);
 
         return mapFakeStoreProductDTOToProduct(fakeStoreProductDTO);
