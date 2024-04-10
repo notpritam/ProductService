@@ -4,12 +4,11 @@ import in.notpritam.projectservice.dtos.ExceptionDTO;
 import in.notpritam.projectservice.dtos.FakeStoreProductDTO;
 import in.notpritam.projectservice.models.Product;
 import in.notpritam.projectservice.services.FakeStoreProductService;
+import in.notpritam.projectservice.services.IProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,10 +18,10 @@ import java.util.Objects;
 @RequestMapping("/products")
 public class ProductControllers {
 
-    FakeStoreProductService fakeStoreProductService;
+   IProductService productService;
 
-    public ProductControllers(){
-        this.fakeStoreProductService = new FakeStoreProductService();
+    public ProductControllers(@Qualifier("selfProductService") IProductService productService){
+        this.productService = productService;
     }
 
 
@@ -41,12 +40,17 @@ public class ProductControllers {
 //            }
 
 
-            return fakeStoreProductService.getProductById(id);
+            return productService.getProductById(id);
     }
 
     @GetMapping
     public List<Product> getAllProduct(){
-        return fakeStoreProductService.getAllProduct();
+        return productService.getAllProduct();
+    }
+
+    @PostMapping
+    public  Product createProduct(@RequestBody Product product){
+        return  productService.createProduct(product);
     }
 
 }

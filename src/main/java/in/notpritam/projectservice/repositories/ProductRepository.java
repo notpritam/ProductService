@@ -10,6 +10,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     Optional<Product> findById(Long id);
 
+    @Override
+    Product save(Product product);
+
 
 
 }
